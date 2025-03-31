@@ -1,4 +1,4 @@
-package main.models;
+package models;
 
 public class Student {
     private int studentID;
