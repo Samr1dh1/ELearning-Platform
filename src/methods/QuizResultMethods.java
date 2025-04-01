@@ -1,4 +1,5 @@
 package methods;
+
 import database.DBConnection;
 import models.QuizResult;
 
@@ -24,12 +25,12 @@ public class QuizResultMethods {
     public static List<QuizResult> getStudentQuizResults(int studentId) {
         List<QuizResult> results = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection()) {
-            String sql = "SELECT qr.Score, q.QuizTitle FROM QuizResults qr, Quizzes q WHERE qr.QuizID = q.QuizID AND qr.StudentID = ?";
+            String sql = "SELECT qr.QuizID, qr.Score FROM QuizResults qr WHERE qr.StudentID = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, studentId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                results.add(new QuizResult(studentId, 0, 0, rs.getInt(1)));
+                results.add(new QuizResult(0, studentId, rs.getInt("QuizID"), rs.getInt("Score"))); // ✅ Corrected constructor
             }
         } catch (SQLException e) {
             e.printStackTrace();

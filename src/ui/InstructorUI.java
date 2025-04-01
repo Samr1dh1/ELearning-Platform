@@ -1,38 +1,70 @@
 package ui;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import methods.InstructorMethods;
+import models.Instructor;
+
 import java.util.List;
-import models.Course;
-import models.Enrollment;
-import methods.CourseMethods;
-import methods.EnrollmentMethods;
+import java.util.Scanner;
 
-public class InstructorUI extends JFrame {
+public class InstructorUI {
+    private static Scanner scanner = new Scanner(System.in);
 
-    private final int instructorId = 1; // For demo purposes
+    public static void instructorMenu() {
+        while (true) {
+            displayInstructorMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
 
-    public InstructorUI() {
-        setTitle("Instructor UI");
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-
-        // Tab 1: My Courses
-        JTable coursesTable = new JTable();
-        DefaultTableModel coursesModel = new DefaultTableModel(new Object[]{"Course ID", "Course Name"}, 0);
-        List<Course> courses = CourseMethods.getCoursesByInstructor(instructorId);
-        for (Course c : courses) {
-            coursesModel.addRow(new Object[]{c.getCourseID(), c.getCourseName()});
+            switch (choice) {
+                case 1:
+                    addInstructor();
+                    break;
+                case 2:
+                    displayAllInstructors();
+                    break;
+                case 3:
+                    System.out.println("Returning to main menu...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
         }
-        coursesTable.setModel(coursesModel);
-        JPanel coursesPanel = new JPanel(new BorderLayout());
-        coursesPanel.add(new JScrollPane(coursesTable), BorderLayout.CENTER);
-        tabbedPane.addTab("My Courses", coursesPanel);
+    }
 
-        add(tabbedPane);
+    private static void displayInstructorMenu() {
+        System.out.println("Instructor Management Menu:");
+        System.out.println("1. Add an Instructor");
+        System.out.println("2. Display All Instructors");
+        System.out.println("3. Back to Main Menu");
+        System.out.print("Choose an option: ");
+    }
+
+    private static void addInstructor() {
+        System.out.print("Enter instructor's name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter instructor's email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter instructor's contact: ");
+        String contact = scanner.nextLine();
+        System.out.print("Enter instructor's specialization: ");
+        String specialization = scanner.nextLine();
+
+        boolean success = InstructorMethods.addInstructor(name, email, contact, specialization);
+        if (success) {
+            System.out.println("Instructor added successfully!");
+        } else {
+            System.out.println("Failed to add instructor.");
+        }
+    }
+
+    private static void displayAllInstructors() {
+        List<Instructor> instructors = InstructorMethods.getInstructors();
+        if (instructors != null && !instructors.isEmpty()) {
+            for (Instructor instructor : instructors) {
+                System.out.println(instructor);
+            }
+        } else {
+            System.out.println("No instructors found.");
+        }
     }
 }

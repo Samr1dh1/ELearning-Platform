@@ -1,67 +1,104 @@
 package ui;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import methods.CourseMethods;
+import models.Course;
+
 import java.util.List;
-import models.Lesson;
-import models.Quiz;
-import models.Student;
-import methods.LessonMethods;
-import methods.QuizMethods;
-import methods.EnrollmentMethods;
+import java.util.Scanner;
 
-public class CourseUI extends JFrame {
+public class CourseUI {
+    private static Scanner scanner = new Scanner(System.in);
 
-    private final int courseId = 1; // For demo purposes
+    public static void courseMenu() {
+        while (true) {
+            displayCourseMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
 
-    public CourseUI() {
-        setTitle("Course UI");
-        setSize(800, 600);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-
-        // Tab 1: Lessons
-        JTable lessonsTable = new JTable();
-        DefaultTableModel lessonsModel = new DefaultTableModel(new Object[]{"Lesson ID", "Title"}, 0);
-        List<Lesson> lessons = LessonMethods.getLessonsByCourse(courseId);
-        for (Lesson l : lessons) {
-            lessonsModel.addRow(new Object[]{l.getLessonID(), l.getLessonTitle()});
+            switch (choice) {
+                case 1:
+                    addCourse();
+                    break;
+                case 2:
+                    updateCoursePrice();
+                    break;
+                case 3:
+                    displayAllCourses();
+                    break;
+                case 4:
+                    viewCourseDetails();
+                    break;
+                case 5:
+                    System.out.println("Returning to main menu...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
         }
-        lessonsTable.setModel(lessonsModel);
-        JPanel lessonsPanel = new JPanel(new BorderLayout());
-        lessonsPanel.add(new JScrollPane(lessonsTable), BorderLayout.CENTER);
-        tabbedPane.addTab("Lessons", lessonsPanel);
+    }
 
-        // Tab 2: Quizzes
-        JTable quizzesTable = new JTable();
-        DefaultTableModel quizzesModel = new DefaultTableModel(new Object[]{"Quiz ID", "Quiz Title"}, 0);
-        List<Quiz> quizzes = QuizMethods.getQuizzesByCourse(courseId);
-        for (Quiz q : quizzes) {
-            quizzesModel.addRow(new Object[]{q.getQuizID(), q.getQuizTitle()});
+    private static void displayCourseMenu() {
+        System.out.println("Course Management Menu:");
+        System.out.println("1. Add a Course");
+        System.out.println("2. Update Course Price");
+        System.out.println("3. Display All Courses");
+        System.out.println("4. View Course Details");
+        System.out.println("5. Back to Main Menu");
+        System.out.print("Choose an option: ");
+    }
+
+    private static void addCourse() {
+        System.out.print("Enter course name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter course description: ");
+        String desc = scanner.nextLine();
+        System.out.print("Enter instructor ID: ");
+        int instructorID = scanner.nextInt();
+        System.out.print("Enter course price: ");
+        double price = scanner.nextDouble();
+
+        boolean success = CourseMethods.addCourse(name, desc, instructorID, price);
+        if (success) {
+            System.out.println("Course added successfully!");
+        } else {
+            System.out.println("Failed to add course.");
         }
-        quizzesTable.setModel(quizzesModel);
-        JPanel quizzesPanel = new JPanel(new BorderLayout());
-        quizzesPanel.add(new JScrollPane(quizzesTable), BorderLayout.CENTER);
-        tabbedPane.addTab("Quizzes", quizzesPanel);
+    }
 
-        // Tab 3: Enrolled Students
-        JTable studentsTable = new JTable();
-        DefaultTableModel studentsModel = new DefaultTableModel(new Object[]{"Student ID", "Name"}, 0);
-        // This method should return the list of students enrolled in this course.
-        List<Student> enrolledStudents = EnrollmentMethods.getStudentsEnrolledInCourse(courseId);
-        for (Student s : enrolledStudents) {
-            studentsModel.addRow(new Object[]{s.getStudentID(), s.getName()});
+    private static void updateCoursePrice() {
+        System.out.print("Enter course ID: ");
+        int courseID = scanner.nextInt();
+        System.out.print("Enter new price: ");
+        double newPrice = scanner.nextDouble();
+
+        boolean success = CourseMethods.updatePrice(courseID, newPrice);
+        if (success) {
+            System.out.println("Course price updated successfully!");
+        } else {
+            System.out.println("Failed to update course price.");
         }
-        studentsTable.setModel(studentsModel);
-        JPanel studentsPanel = new JPanel(new BorderLayout());
-        studentsPanel.add(new JScrollPane(studentsTable), BorderLayout.CENTER);
-        tabbedPane.addTab("Enrolled Students", studentsPanel);
+    }
 
-        // Optionally, add another tab to show all courses/instructors if needed.
+    private static void displayAllCourses() {
+        List<Course> courses = CourseMethods.getCourses();
+        if (courses != null && !courses.isEmpty()) {
+            for (Course course : courses) {
+                System.out.println(course);
+            }
+        } else {
+            System.out.println("No courses found.");
+        }
+    }
 
-        add(tabbedPane);
+    private static void viewCourseDetails() {
+        System.out.print("Enter course ID: ");
+        int courseID = scanner.nextInt();
+
+        String details = CourseMethods.getCourseDetails(courseID);
+        if (details != null) {
+            System.out.println("Course Details: " + details);
+        } else {
+            System.out.println("Course not found.");
+        }
     }
 }
