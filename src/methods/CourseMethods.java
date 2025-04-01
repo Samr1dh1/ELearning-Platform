@@ -36,6 +36,37 @@ public class CourseMethods {
         }
     }
 
+    public static List<Course> getCourses() {
+        List<Course> courses = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM Courses";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Course course = new Course(rs.getInt("CourseID"), rs.getString("CourseName"), rs.getString("Description"), rs.getInt("InstructorID"), rs.getDouble("Price"));
+                courses.add(course);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return courses;
+    }
+
+    public static boolean addCourse(String name, String desc, int instructorID, double price) {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "INSERT INTO Courses (CourseName, Description, InstructorID, Price) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, desc);
+            stmt.setInt(3, instructorID);
+            stmt.setDouble(4, price);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static List<Course> getCoursesByInstructor(int instructorID) {
         List<Course> courses = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection()) {

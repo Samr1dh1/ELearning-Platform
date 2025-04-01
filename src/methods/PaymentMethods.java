@@ -20,6 +20,44 @@ public class PaymentMethods {
         }
     }
 
+    public static boolean addPayment(int studentId, double amount, String paymentDate, String status) {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "INSERT INTO Payments (StudentID, Amount, PaymentDate, Status) VALUES (?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, studentId);
+            stmt.setDouble(2, amount);
+            stmt.setString(3, paymentDate);
+
+            stmt.setString(4, status);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static List<Payment> getPayments() {
+        List<Payment> payments = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM Payments";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Payment payment = new Payment(
+                        rs.getInt("PaymentID"),
+                        rs.getInt("StudentID"),
+                        rs.getDouble("Amount"),
+                        rs.getString("PaymentDate"),
+                        rs.getString("Status")
+                );
+                payments.add(payment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return payments;
+    }
+
     public static List<Payment> getStudentPayments(int studentId) {
         List<Payment> payments = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection()) {

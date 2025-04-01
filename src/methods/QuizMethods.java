@@ -39,4 +39,35 @@ public class QuizMethods {
         if (quiz == null) return null;
         return quiz.toString();
     }
+
+
+    public static List<Quiz> getQuizzes() {
+        List<Quiz> quizzes = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "SELECT * FROM Quizzes";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Quiz quiz = new Quiz(rs.getInt("QuizID"), rs.getInt("CourseID"), rs.getString("QuizTitle"), rs.getInt("TotalMarks"));
+                quizzes.add(quiz);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quizzes;
+    }
+
+    public static boolean addQuiz(int courseId, String quizTitle, int totalMarks) {
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "INSERT INTO Quizzes (CourseID, QuizTitle, TotalMarks) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, courseId);
+            stmt.setString(2, quizTitle);
+            stmt.setInt(3, totalMarks);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
