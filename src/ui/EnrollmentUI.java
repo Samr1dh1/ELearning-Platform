@@ -84,9 +84,17 @@ public class EnrollmentUI {
     private static void displayAllEnrollments() {
         List<Map<String, Object>> enrollments = EnrollmentMethods.getEnrollments();
         if (enrollments != null && !enrollments.isEmpty()) {
+            System.out.println("\n----------------------------------------------------------");
+            System.out.printf("%-12s %-12s %-15s\n", "Student ID", "Course ID", "Enrollment Date");
+            System.out.println("----------------------------------------------------------");
+
             for (Map<String, Object> enrollment : enrollments) {
-                System.out.println(enrollment);
+                System.out.printf("%-12d %-12d %-15s\n",
+                        (int) enrollment.get("StudentID"),
+                        (int) enrollment.get("CourseID"),
+                        enrollment.get("EnrollmentDate").toString());
             }
+            System.out.println("----------------------------------------------------------");
         } else {
             System.out.println("No enrollments found.");
         }
@@ -98,9 +106,15 @@ public class EnrollmentUI {
 
         List<Course> courses = EnrollmentMethods.getStudentCourses(studentId);
         if (courses != null && !courses.isEmpty()) {
+            System.out.println("\n----------------------------------------------------------");
+            System.out.printf("%-10s %-25s %-15s\n", "Course ID", "Course Name", "Price");
+            System.out.println("----------------------------------------------------------");
+
             for (Course course : courses) {
-                System.out.println(course);
+                System.out.printf("%-10d %-25s %-15.2f\n",
+                        course.getCourseID(), course.getCourseName(), course.getPrice());
             }
+            System.out.println("----------------------------------------------------------");
         } else {
             System.out.println("No courses found for this student.");
         }
@@ -112,9 +126,15 @@ public class EnrollmentUI {
 
         List<Student> students = EnrollmentMethods.getStudentsEnrolledInCourse(courseId);
         if (students != null && !students.isEmpty()) {
+            System.out.println("\n-----------------------------------------------------");
+            System.out.printf("%-12s %-20s %-20s\n", "Student ID", "Name", "Email");
+            System.out.println("-----------------------------------------------------");
+
             for (Student student : students) {
-                System.out.println(student);
+                System.out.printf("%-12d %-20s %-20s\n",
+                        student.getStudentID(), student.getName(), student.getEmail());
             }
+            System.out.println("-----------------------------------------------------");
         } else {
             System.out.println("No students enrolled in this course.");
         }

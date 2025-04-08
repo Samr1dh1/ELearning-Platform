@@ -83,8 +83,14 @@ public class PaymentUI {
     private static void viewPayments() {
         List<Payment> payments = PaymentMethods.getPayments();
         if (payments != null && !payments.isEmpty()) {
+            System.out.printf("%-12s %-10s %-15s %-10s%n", "Student ID", "Amount", "Payment Date", "Status");
+            System.out.println("---------------------------------------------------------");
             for (Payment payment : payments) {
-                System.out.println(payment);
+                System.out.printf("%-12d %-10.2f %-15s %-10s%n",
+                        payment.getStudentID(),
+                        payment.getAmount(),
+                        payment.getPaymentDate(),
+                        payment.getStatus());
             }
         } else {
             System.out.println("No payments found.");
@@ -97,8 +103,14 @@ public class PaymentUI {
 
         List<Payment> payments = PaymentMethods.getStudentPayments(studentId);
         if (payments != null && !payments.isEmpty()) {
+            System.out.printf("%-12s %-10s %-15s %-10s%n", "Student ID", "Amount", "Payment Date", "Status");
+            System.out.println("---------------------------------------------------------");
             for (Payment payment : payments) {
-                System.out.println(payment);
+                System.out.printf("%-12d %-10.2f %-15s %-10s%n",
+                        payment.getStudentID(),
+                        payment.getAmount(),
+                        payment.getPaymentDate(),
+                        payment.getStatus());
             }
         } else {
             System.out.println("No payments found for this student.");

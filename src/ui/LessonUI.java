@@ -1,10 +1,10 @@
 package ui;
 
-import methods.LessonMethods;
-import models.Lesson;
-
 import java.util.List;
 import java.util.Scanner;
+
+import models.Lesson;
+import methods.LessonMethods;
 
 public class LessonUI {
     private static Scanner scanner = new Scanner(System.in);
@@ -107,8 +107,11 @@ public class LessonUI {
 
         List<Lesson> lessons = LessonMethods.getLessonsByCourse(courseId);
         if (lessons != null && !lessons.isEmpty()) {
+            System.out.printf("%-10s %-25s %-50s %-30s%n", "Lesson ID", "Title", "Content", "Video URL");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------");
             for (Lesson lesson : lessons) {
-                System.out.println(lesson);
+                System.out.printf("%-10d %-25s %-50s %-30s%n",
+                        lesson.getLessonID(), lesson.getLessonTitle(), lesson.getContent(), lesson.getVideoURL());
             }
         } else {
             System.out.println("No lessons found for this course.");
@@ -118,8 +121,11 @@ public class LessonUI {
     private static void viewAllLessons() {
         List<Lesson> lessons = LessonMethods.getAllLessons();
         if (lessons != null && !lessons.isEmpty()) {
+            System.out.printf("%-10s %-25s %-50s %-30s%n", "Lesson ID", "Title", "Content", "Video URL");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------");
             for (Lesson lesson : lessons) {
-                System.out.println(lesson);
+                System.out.printf("%-10d %-25s %-50s %-30s%n",
+                        lesson.getLessonID(), lesson.getLessonTitle(), lesson.getContent(), lesson.getVideoURL());
             }
         } else {
             System.out.println("No lessons found.");

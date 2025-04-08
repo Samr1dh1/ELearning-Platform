@@ -82,9 +82,15 @@ public class CourseUI {
     private static void displayAllCourses() {
         List<Course> courses = CourseMethods.getCourses();
         if (courses != null && !courses.isEmpty()) {
+            System.out.println("\n-------------------------------------------------------------");
+            System.out.printf("%-10s %-25s %-15s %-10s\n", "Course ID", "Course Name", "Instructor ID", "Price");
+            System.out.println("-------------------------------------------------------------");
+
             for (Course course : courses) {
-                System.out.println(course);
+                System.out.printf("%-10d %-25s %-15d %-10.2f\n",
+                        course.getCourseID(), course.getCourseName(), course.getInstructorID(), course.getPrice());
             }
+            System.out.println("-------------------------------------------------------------");
         } else {
             System.out.println("No courses found.");
         }
@@ -96,7 +102,11 @@ public class CourseUI {
 
         String details = CourseMethods.getCourseDetails(courseID);
         if (details != null) {
-            System.out.println("Course Details: " + details);
+            System.out.println("\n-------------------------------------------------------------");
+            System.out.printf("%-10s %-25s %-15s %-10s\n", "Course ID", "Course Name", "Instructor ID", "Price");
+            System.out.println("-------------------------------------------------------------");
+            System.out.println(details);
+            System.out.println("-------------------------------------------------------------");
         } else {
             System.out.println("Course not found.");
         }

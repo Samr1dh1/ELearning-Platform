@@ -79,8 +79,14 @@ public class StudentUI {
     private static void displayAllStudents() {
         List<Student> students = StudentMethods.getStudents();
         if (students != null && !students.isEmpty()) {
+            System.out.printf("%-10s %-20s %-30s %-15s%n", "Student ID", "Name", "Email", "Contact");
+            System.out.println("---------------------------------------------------------------------------");
             for (Student student : students) {
-                System.out.println(student);
+                System.out.printf("%-10d %-20s %-30s %-15s%n",
+                        student.getStudentID(),
+                        student.getName(),
+                        student.getEmail(),
+                        student.getContact());
             }
         } else {
             System.out.println("No students found.");

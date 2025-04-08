@@ -32,7 +32,7 @@ public class InstructorUI {
     }
 
     private static void displayInstructorMenu() {
-        System.out.println("Instructor Management Menu:");
+        System.out.println("\nInstructor Management Menu:");
         System.out.println("1. Add an Instructor");
         System.out.println("2. Display All Instructors");
         System.out.println("3. Back to Main Menu");
@@ -60,9 +60,19 @@ public class InstructorUI {
     private static void displayAllInstructors() {
         List<Instructor> instructors = InstructorMethods.getInstructors();
         if (instructors != null && !instructors.isEmpty()) {
+            System.out.println("\n---------------------------------------------------------------------------------");
+            System.out.printf("%-10s %-20s %-25s %-15s %-20s\n", "ID", "Name", "Email", "Contact", "Specialization");
+            System.out.println("---------------------------------------------------------------------------------");
+
             for (Instructor instructor : instructors) {
-                System.out.println(instructor);
+                System.out.printf("%-10d %-20s %-25s %-15s %-20s\n",
+                        instructor.getInstructorID(),
+                        instructor.getName(),
+                        instructor.getEmail(),
+                        instructor.getContact(),
+                        instructor.getSpecialization());
             }
+            System.out.println("---------------------------------------------------------------------------------");
         } else {
             System.out.println("No instructors found.");
         }

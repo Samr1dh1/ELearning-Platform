@@ -70,8 +70,14 @@ public class QuizUI {
 
         List<Quiz> quizzes = QuizMethods.getQuizzesByCourse(courseId);
         if (quizzes != null && !quizzes.isEmpty()) {
+            System.out.printf("%-10s %-10s %-30s %-12s%n", "Quiz ID", "Course ID", "Title", "Total Marks");
+            System.out.println("---------------------------------------------------------------------");
             for (Quiz quiz : quizzes) {
-                System.out.println(quiz);
+                System.out.printf("%-10d %-10d %-30s %-12d%n",
+                        quiz.getQuizID(),
+                        quiz.getCourseID(),
+                        quiz.getQuizTitle(),
+                        quiz.getTotalMarks());
             }
         } else {
             System.out.println("No quizzes found for this course.");
@@ -81,8 +87,14 @@ public class QuizUI {
     private static void viewAllQuizzes() {
         List<Quiz> quizzes = QuizMethods.getQuizzes();
         if (quizzes != null && !quizzes.isEmpty()) {
+            System.out.printf("%-10s %-10s %-30s %-12s%n", "Quiz ID", "Course ID", "Title", "Total Marks");
+            System.out.println("---------------------------------------------------------------------");
             for (Quiz quiz : quizzes) {
-                System.out.println(quiz);
+                System.out.printf("%-10d %-10d %-30s %-12d%n",
+                        quiz.getQuizID(),
+                        quiz.getCourseID(),
+                        quiz.getQuizTitle(),
+                        quiz.getTotalMarks());
             }
         } else {
             System.out.println("No quizzes found.");
