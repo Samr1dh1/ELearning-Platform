@@ -10,26 +10,6 @@ import java.util.Date;
 import java.util.List;
 
 public class StudentMethods {
-    public static boolean registerStudent(Student student) {
-        try (Connection conn = DBConnection.getConnection()) {
-            String sql = "INSERT INTO Students (Name, Email, Contact, EnrollmentDate) VALUES (?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, student.getName());
-            stmt.setString(2, student.getEmail());
-            stmt.setString(3, student.getContact());
-
-            // Parse the String date into a Date object
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Date enrollmentDate = dateFormat.parse(student.getEnrollmentDate());
-
-            stmt.setDate(4, new java.sql.Date(enrollmentDate.getTime()));
-            return stmt.executeUpdate() > 0;
-        } catch (SQLException | ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public static Student getStudent(int studentID) {
         try (Connection conn = DBConnection.getConnection()) {
             String sql = "SELECT * FROM Students WHERE StudentID = ?";
@@ -47,23 +27,6 @@ public class StudentMethods {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public static void displayAllStudents() {
-        try (Connection conn = DBConnection.getConnection()) {
-            String sql = "SELECT * FROM Students";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Student student = new Student(
-                        rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)
-                );
-                System.out.println(student.toString());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

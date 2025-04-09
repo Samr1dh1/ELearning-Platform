@@ -38,7 +38,7 @@ public class PaymentUI {
     }
 
     private static void displayPaymentMenu() {
-        System.out.println("Payment Management Menu:");
+        System.out.println("\nPayment Management Menu:");
         System.out.println("1. Process Payment");
         System.out.println("2. Add Payment");
         System.out.println("3. View All Payments");

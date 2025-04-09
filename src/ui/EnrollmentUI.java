@@ -43,7 +43,7 @@ public class EnrollmentUI {
     }
 
     private static void displayEnrollmentMenu() {
-        System.out.println("Enrollment Management Menu:");
+        System.out.println("\nEnrollment Management Menu:");
         System.out.println("1. Enroll Student in Course");
         System.out.println("2. Delete Enrollment");
         System.out.println("3. Display All Enrollments");

@@ -32,12 +32,10 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course{" +
-                "ID=" + courseID +
-                ", Name='" + courseName + '\'' +
-                ", Description='" + description + '\'' +
-                ", Instructor ID=" + instructorID +
-                ", Price=" + price +
-                '}';
+        return  "\n ID = " + courseID +
+                ",\n Name = '" + courseName + '\'' +
+                ",\n Description = '" + description + '\'' +
+                ",\n Instructor ID = " + instructorID +
+                ",\n Price = " + price;
     }
 }

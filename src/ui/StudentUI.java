@@ -38,7 +38,7 @@ public class StudentUI {
     }
 
     private static void displayStudentMenu() {
-        System.out.println("Student Management Menu:");
+        System.out.println("\nStudent Management Menu:");
         System.out.println("1. Add a Student");
         System.out.println("2. Delete a Student");
         System.out.println("3. Display All Students");
@@ -79,7 +79,7 @@ public class StudentUI {
     private static void displayAllStudents() {
         List<Student> students = StudentMethods.getStudents();
         if (students != null && !students.isEmpty()) {
-            System.out.printf("%-10s %-20s %-30s %-15s%n", "Student ID", "Name", "Email", "Contact");
+            System.out.printf("\n%-10s %-20s %-30s %-15s%n", "Student ID", "Name", "Email", "Contact");
             System.out.println("---------------------------------------------------------------------------");
             for (Student student : students) {
                 System.out.printf("%-10d %-20s %-30s %-15s%n",
@@ -88,6 +88,7 @@ public class StudentUI {
                         student.getEmail(),
                         student.getContact());
             }
+            System.out.println("---------------------------------------------------------------------------\n");
         } else {
             System.out.println("No students found.");
         }
@@ -100,7 +101,7 @@ public class StudentUI {
 
         Student student = StudentMethods.getStudent(studentID);
         if (student != null) {
-            System.out.println("Student Details: " + student);
+            System.out.println("\nStudent Details: " + student.toString());
         } else {
             System.out.println("Student not found.");
         }

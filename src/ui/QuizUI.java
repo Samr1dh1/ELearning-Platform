@@ -38,7 +38,7 @@ public class QuizUI {
     }
 
     private static void displayQuizMenu() {
-        System.out.println("Quiz Management Menu:");
+        System.out.println("\nQuiz Management Menu:");
         System.out.println("1. Add Quiz");
         System.out.println("2. View Quizzes by Course");
         System.out.println("3. View All Quizzes");
@@ -107,7 +107,7 @@ public class QuizUI {
 
         String quizDetails = QuizMethods.getQuizDetails(quizID);
         if (quizDetails != null) {
-            System.out.println(quizDetails);
+            System.out.println("\nQuiz Details: " + quizDetails);
         } else {
             System.out.println("No details found for this quiz.");
         }

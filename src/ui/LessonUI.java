@@ -41,7 +41,7 @@ public class LessonUI {
     }
 
     private static void displayLessonMenu() {
-        System.out.println("Lesson Management Menu:");
+        System.out.println("\nLesson Management Menu:");
         System.out.println("1. Add Lesson");
         System.out.println("2. Update Lesson");
         System.out.println("3. Delete Lesson");

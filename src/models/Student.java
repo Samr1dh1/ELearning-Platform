@@ -32,12 +32,10 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "ID=" + studentID +
-                ", Name='" + name + '\'' +
-                ", Email='" + email + '\'' +
-                ", Contact='" + contact + '\'' +
-                ", Enrollment Date='" + enrollmentDate + '\'' +
-                '}';
+        return  "\n StudentID = " + studentID +
+                ",\n Name = '" + name +
+                ",\n Email = '" + email +
+                ",\n Contact = '" + contact +
+                ",\n Enrollment Date = '" + enrollmentDate + '\n';
     }
 }

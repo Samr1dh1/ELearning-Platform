@@ -27,11 +27,9 @@ public class QuizResult {
 
     @Override
     public String toString() {
-        return "QuizResult{" +
-                "ID=" + resultID +
-                ", Student ID=" + studentID +
-                ", Quiz ID=" + quizID +
-                ", Score=" + score +
-                '}';
+        return  "\n ID=" + resultID +
+                ",\n Student ID=" + studentID +
+                ",\n Quiz ID=" + quizID +
+                ",\n Score=" + score;
     }
 }

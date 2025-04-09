@@ -46,7 +46,7 @@ public class MainUI {
     }
 
     private static void displayMainMenu() {
-        System.out.println("Welcome to the E-Learning System");
+        System.out.println("\nWelcome to the E-Learning System");
         System.out.println("1. Manage Courses");
         System.out.println("2. Manage Instructors");
         System.out.println("3. Manage Students");

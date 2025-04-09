@@ -38,7 +38,7 @@ public class CourseUI {
     }
 
     private static void displayCourseMenu() {
-        System.out.println("Course Management Menu:");
+        System.out.println("\nCourse Management Menu:");
         System.out.println("1. Add a Course");
         System.out.println("2. Update Course Price");
         System.out.println("3. Display All Courses");
@@ -102,11 +102,7 @@ public class CourseUI {
 
         String details = CourseMethods.getCourseDetails(courseID);
         if (details != null) {
-            System.out.println("\n-------------------------------------------------------------");
-            System.out.printf("%-10s %-25s %-15s %-10s\n", "Course ID", "Course Name", "Instructor ID", "Price");
-            System.out.println("-------------------------------------------------------------");
-            System.out.println(details);
-            System.out.println("-------------------------------------------------------------");
+            System.out.println("\nCourse Details: " + details);
         } else {
             System.out.println("Course not found.");
         }

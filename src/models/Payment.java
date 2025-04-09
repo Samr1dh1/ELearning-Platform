@@ -32,12 +32,10 @@ public class Payment {
 
     @Override
     public String toString() {
-        return "Payment{" +
-                "ID=" + paymentID +
-                ", Student ID=" + studentID +
-                ", Amount=" + amount +
-                ", Payment Date='" + paymentDate + '\'' +
-                ", Status='" + status + '\'' +
-                '}';
+        return  "\n ID = " + paymentID +
+                ",\n Student ID = " + studentID +
+                ",\n Amount = " + amount +
+                ",\n Payment Date = '" + paymentDate + '\'' +
+                ",\n Status = '" + status + '\'';
     }
 }
