@@ -96,7 +96,13 @@ public class EnrollmentMethods {
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Student student = new Student(rs.getInt("StudentID"), rs.getString("FirstName"), rs.getString("LastName"), rs.getString("Email"), rs.getString("EnrollmentDate"));
+                Student student = new Student(
+                        rs.getInt("StudentID"),
+                        rs.getString("Name"),
+                        rs.getString("Email"),
+                        rs.getString("EnrollmentDate"),
+                        rs.getString("Contact")
+                );
                 students.add(student);
             }
         } catch (SQLException e) {
